@@ -1,6 +1,7 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.yearup.data.CategoryDao;
 import org.yearup.data.ProductDao;
@@ -8,6 +9,7 @@ import org.yearup.data.mysql.MySqlCategoryDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
+import javax.annotation.security.PermitAll;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class CategoriesController {
 
     // add the appropriate annotation for a get action
     @GetMapping
+    @PreAuthorize("permitAll()")
     public List<Category> getAll() {
         // find and return all categories
 
@@ -39,27 +42,30 @@ public class CategoriesController {
     }
 
     // add the appropriate annotation for a get action
-    public Category getById(@PathVariable int id)
-    {
+    @GetMapping("{id}")
+    @PreAuthorize("permitAll()")
+    public Category getById(@PathVariable int id) {
         // get the category by id
-        return null;
+        return categoryDao.getById(id);
     }
 
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId)
-    {
+    @PreAuthorize("permitAll()")
+    public List<Product> getProductsById(@PathVariable int categoryId) {
         // get a list of product by categoryId
-        return null;
+        return productDao.listByCategoryId(categoryId);
     }
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
+    @PostMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category)
     {
         // insert the category
-        return null;
+        return categoryDao.create(category);
     }
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId

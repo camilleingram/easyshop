@@ -2,7 +2,9 @@ package org.yearup.data.mysql;
 
 import org.springframework.stereotype.Component;
 import org.yearup.data.CategoryDao;
+import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
+import org.yearup.models.Product;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -16,11 +18,13 @@ import java.util.List;
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 {
     private final DataSource dataSource;
+    private final ProductDao productDao;
 
-    public MySqlCategoryDao(DataSource dataSource)
+    public MySqlCategoryDao(DataSource dataSource, ProductDao productDao)
     {
         super(dataSource);
         this.dataSource = dataSource;
+        this.productDao = productDao;
     }
 
     @Override
@@ -48,16 +52,54 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     }
 
     @Override
-    public Category getById(int categoryId)
-    {
-        // get category by id
+    public Category getById(int categoryId) {
+
+        String query = "SELECT * " +
+                "FROM categories " +
+                "WHERE category_id = ?";
+
+        try(Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, categoryId);
+
+            ResultSet row = preparedStatement.executeQuery();
+
+            if(row.next()) {
+                return mapRow(row);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
     @Override
-    public Category create(Category category)
-    {
-        // create a new category
+    public Category create(Category category) {
+        String query = "INSERT INTO categories(name, description) " +
+                "VALUES(?, ?)";
+
+        try(Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.setString(2, category.getDescription());
+
+            int rows = preparedStatement.executeUpdate();
+
+            if(rows > 0) {
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+                if(generatedKeys.next()) {
+                    int newCategoryId = generatedKeys.getInt(1);
+
+                    return getById(newCategoryId);
+                }
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
