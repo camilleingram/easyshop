@@ -12,9 +12,8 @@ import org.yearup.models.Product;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.ShoppingCartItem;
 import org.yearup.models.User;
-
 import java.security.Principal;
-import java.sql.SQLException;
+
 
 // convert this class to a REST controller
 // only logged in users should have access to these actions
@@ -28,7 +27,6 @@ public class ShoppingCartController {
     private ShoppingCartDao shoppingCartDao;
     private UserDao userDao;
     private ProductDao productDao;
-    private ShoppingCart shoppingCart;
 
     @Autowired
     public ShoppingCartController(ShoppingCartDao shoppingCartDao, UserDao userDao, ProductDao productDao) {
@@ -60,20 +58,20 @@ public class ShoppingCartController {
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
-    @PostMapping("products/{id}")
-    public ShoppingCart addToShoppingCart(@PathVariable int id, Principal principal) {
+    @PostMapping("products/{productId}")
+    public ShoppingCart addToShoppingCart(@PathVariable int productId, Principal principal) {
 
         try {
             String username = principal.getName();
             User user = userDao.getByUserName(username);
             int userId = user.getId();
 
-            Product product = productDao.getById(id);
+            Product product = productDao.getById(productId);
             if(product == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
             }
 
-            shoppingCartDao.addToCart(id, userId);
+            shoppingCartDao.addToCart(productId, userId);
             return shoppingCartDao.getByUserId(userId);
 
         } catch (Exception e) {
@@ -86,6 +84,32 @@ public class ShoppingCartController {
     // add a PUT method to update an existing product in the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
+    @PutMapping("products/{productId}")
+    public ShoppingCart updateItem(@PathVariable int productId, @RequestBody ShoppingCartItem shoppingCartItem,
+            Principal principal) {
+
+        try {
+            String userName = principal.getName();
+            User user = userDao.getByUserName(userName);
+            int userId = user.getId();
+
+            ShoppingCart cart = shoppingCartDao.getByUserId(userId);
+
+            Product product = productDao.getById(productId);
+            if(!cart.contains(productId)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found in cart");
+            }
+
+            int quantity = shoppingCartItem.getQuantity();
+
+            shoppingCartDao.updateItem(productId, quantity, userId);
+            return shoppingCartDao.getByUserId(userId);
+
+
+        } catch(Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update product quantity");
+        }
+    }
 
 
     // add a DELETE method to clear all products from the current users cart
