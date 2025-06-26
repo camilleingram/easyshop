@@ -21,6 +21,7 @@ import java.sql.SQLException;
 @RestController
 @RequestMapping("cart")
 @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+@CrossOrigin
 public class ShoppingCartController {
 
     // a shopping cart requires
