@@ -41,6 +41,7 @@ public class OrderController {
 
         Order order = orderDao.addToOrders(profileDao.getByUserId(userId));
         orderDao.addToOrderLineItems(shoppingCartDao.getByUserId(userId),order);
+        shoppingCartDao.clearCart(userId);
 
         return order;
 
