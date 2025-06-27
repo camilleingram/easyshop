@@ -20,7 +20,7 @@ This project was developed as part of a final Java Capstone. It includes:
 ## Screenshots
 
 ### Home Screen
-![Product Filtering Screenshot](Screenshot_2025-06-26_at_11.06.36_PM.png)
+![Home Screenshot]<img width="1676" alt="Screenshot 2025-06-26 at 11 06 36 PM" src="https://github.com/user-attachments/assets/d15a8061-d29f-4c74-94c6-c4aad792364d" />
 
 ### Product Browsing + Filtering
 ![Product Filtering Screenshot](Screenshot_2025-06-26_at_11.07.22_PM.png)
