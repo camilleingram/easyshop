@@ -20,19 +20,19 @@ This project was developed as part of a final Java Capstone. It includes:
 ## Screenshots
 
 ### Home Screen
-![Home Screenshot](<img width="1676" alt="Screenshot 2025-06-26 at 11 06 36 PM" src="https://github.com/user-attachments/assets/d15a8061-d29f-4c74-94c6-c4aad792364d" />)
+<img width="1676" alt="Screenshot 2025-06-26 at 11 06 36 PM" src="https://github.com/user-attachments/assets/d15a8061-d29f-4c74-94c6-c4aad792364d" />
 
 ### Product Browsing + Filtering
-![Product Filtering Screenshot](<img width="1676" alt="Screenshot 2025-06-26 at 11 07 22 PM" src="https://github.com/user-attachments/assets/1c187411-b7e3-465b-b4db-29f6dbad008d" />)
+<img width="1676" alt="Screenshot 2025-06-26 at 11 07 22 PM" src="https://github.com/user-attachments/assets/1c187411-b7e3-465b-b4db-29f6dbad008d" />
 
 ### Profile Page
-![Profile Page Screenshot](<img width="1676" alt="Screenshot 2025-06-26 at 11 07 53 PM" src="https://github.com/user-attachments/assets/d7b0a735-44a1-4b53-99cc-8bd79bea9e52" />)
+<img width="1676" alt="Screenshot 2025-06-26 at 11 07 53 PM" src="https://github.com/user-attachments/assets/d7b0a735-44a1-4b53-99cc-8bd79bea9e52" />
 
 ### Login Modal
-![Login Screenshot](<img width="1676" alt="Screenshot 2025-06-26 at 11 08 11 PM" src="https://github.com/user-attachments/assets/e0a94412-4de7-4daf-ac54-12d99604afc7" />)
+<img width="1676" alt="Screenshot 2025-06-26 at 11 08 11 PM" src="https://github.com/user-attachments/assets/e0a94412-4de7-4daf-ac54-12d99604afc7" />
 
 ### Shopping Cart
-![Cart Screenshot](<img width="1676" alt="Screenshot 2025-06-26 at 11 07 41 PM" src="https://github.com/user-attachments/assets/e287cca7-869d-4caf-a5c3-532b60df37d9" />)
+<img width="1676" alt="Screenshot 2025-06-26 at 11 07 41 PM" src="https://github.com/user-attachments/assets/e287cca7-869d-4caf-a5c3-532b60df37d9" />
 
 ---
 
