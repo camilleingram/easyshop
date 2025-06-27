@@ -40,7 +40,7 @@ This project was developed as part of a final Java Capstone. It includes:
 
 A standout feature in this project is the dynamic profile update functionality. Instead of writing separate queries for each profile field, I used a flexible DAO method that can update **any allowed field** by passing in the column name and value safely.
 
-### 🧩 DAO Snippet:
+### DAO Snippet:
 ```java
 @Override
 public void updateProfile(int userId, String param, String value) {
